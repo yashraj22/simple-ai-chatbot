@@ -1,0 +1,15 @@
+{
+  "hasSrc": false,
+  "packages": [
+    "prisma"
+  ],
+  "preferredPackageManager": "npm",
+  "t3": false,
+  "alias": "@",
+  "analytics": true,
+  "rootPath": "",
+  "componentLib": null,
+  "orm": "prisma",
+  "driver": "pg",
+  "auth": null
+}

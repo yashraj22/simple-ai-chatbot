@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Simple AI Chatbot using Vercel AI SDK and Next.js
+
+This repository contains a simple conversational chatbot built using Vercel's AI SDK, Next.js, and Prisma. The chatbot allows a single user to interact with AI, stores conversation history, and lets users provide feedback on AI responses.
+
+## Features
+
+- Single user conversational chatbot
+- Stores conversation history using SQLite and Prisma
+- Like/dislike buttons for each AI response
+- AI responses in Markdown format
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/)
+- [Vercel AI SDK](https://vercel.com/docs)
+- [Prisma](https://www.prisma.io/)
+- [SQLite](https://www.sqlite.org/index.html)
+
+## Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+- Gemini API Key
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/conversational-chatbot.git
+cd conversational-chatbot
+```
+
+### 2. Install Dependencies
+
+Using npm:
+
+```bash
+npm install
+```
+
+Or using yarn:
+
+```bash
+yarn install
+```
+
+### 3. Set Up Environment Variables
+
+Create a `.env` file in the root directory of the project and add the following environment variables:
+
+```env
+DATABASE_URL="file:./dev.db"
+GEMINI_API_KEY="your-vercel-ai-sdk-api-key"
+```
+
+### 4. Set Up Prisma
+
+Generate the Prisma client and set up the SQLite database:
+
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
+### 5. Run the Development Server
+
+Using npm:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or using yarn:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application running.
 
-## Learn More
+## API Endpoints
 
-To learn more about Next.js, take a look at the following resources:
+### POST /api/messages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Description**: Sends a message to the AI and receives a response.
+- **Request Body**:
+  ```json
+  {
+    "message": "Your message here"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "id": 1,
+    "message": "Your message here",
+    "answer": "AI response here",
+    "feedback": null
+  }
+  ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### PUT /api/messages
 
-## Deploy on Vercel
+- **Description**: Updates the feedback for a specific message.
+- **Request Body**:
+  ```json
+  {
+    "id": 1,
+    "feedback": true
+  }
+  ```
+- **Response**: Status 200 OK
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+.
+├── prisma
+│   ├── schema.prisma      # Prisma schema
+├── public                 # Public assets
+├── src
+│   ├── app
+│   │   └── page.tsx       # Main page component
+│   ├── lib
+│   │   └── db
+│   │       └── index.ts   # Prisma client
+│   ├── pages
+│   │   └── api
+│   │       └── messages
+│   │           └── route.ts # API routes
+└── .env                   # Environment variables
+```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
