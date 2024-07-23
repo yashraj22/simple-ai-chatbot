@@ -128,8 +128,8 @@ export default function HomePage() {
         <section className="flex flex-col justify-end bg-white border-border border py-8 px-4 rounded-lg my-4 border-t p-0 bottom-[8vh] ">
           <div className="h-[70vh] w-[600px] overflow-y-scroll bg-white border-border py-2 border px-4 rounded-md">
             {messages.length > 0 ? (
-              messages.map((msg, index) => (
-                <div className="flex flex-col" key={index}>
+              messages.map((msg) => (
+                <div className="flex flex-col" key={msg.id}>
                   <div
                     className={`flex flex-col text-center h-full justify-end my-2`}
                   >
@@ -140,16 +140,16 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div
-                    key={index}
+                    key={msg.id}
                     className={`flex flex-col text-center h-full justify-start`}
                   >
                     <div className="flex flex-col">
-                      <p className="flex items-start  flex-col border border-border bg-slate-50 text-gray-700 borde rounded-lg p-3  md:text-lg  ">
+                      <p className="flex items-start flex-col border border-border bg-slate-50 text-gray-700 rounded-lg p-3  md:text-lg  ">
                         <Markdown className="text-justify">
                           {msg.answer}
                         </Markdown>
                       </p>
-                      <div className="flex flex-col justify-end">
+                      <div className="flex flex-col items-start">
                         <FeedbackButton
                           feedback={msg.feedback}
                           onFeedbackChange={(newFeedback) =>
