@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import { db } from "@/lib/db/index";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { NextRequest, NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
+const prisma = db;
 
 export async function GET() {
   const messages = await prisma.message.findMany({
